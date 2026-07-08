@@ -94,7 +94,7 @@ export const projects: Project[] = [
     },
     hasRealScreenshots: true,
     images: [
-      { src: "/images/projects/pragati/01-home.png", alt: "PRAGATI landing page", caption: "Landing page — \"From First Year to First Offer\"" },
+      { src: "/images/projects/pragati/01-home.webp", alt: "PRAGATI landing page", caption: "Landing page — \"From First Year to First Offer\"" },
     ],
     detail: {
       simpleExplanation: [
@@ -245,7 +245,7 @@ export const projects: Project[] = [
     },
     hasRealScreenshots: true,
     images: [
-      { src: "/images/projects/moneynext/01-hero.png", alt: "MoneyNext landing page showing net worth dashboard", caption: "Landing page — \"Financial Wellness for Every Indian\"" },
+      { src: "/images/projects/moneynext/01-hero.webp", alt: "MoneyNext landing page showing net worth dashboard", caption: "Landing page — \"Financial Wellness for Every Indian\"" },
     ],
     detail: {
       simpleExplanation: [
@@ -316,7 +316,7 @@ export const projects: Project[] = [
     },
     hasRealScreenshots: true,
     images: [
-      { src: "/images/projects/shine/01-dashboard.png", alt: "SHINE Authentication screen", caption: "Authentication Screen — Secure login to student analytics portal" },
+      { src: "/images/projects/shine/01-dashboard.webp", alt: "SHINE Authentication screen", caption: "Authentication Screen — Secure login to student analytics portal" },
     ],
     detail: {
       simpleExplanation: [
@@ -381,7 +381,7 @@ export const projects: Project[] = [
     },
     hasRealScreenshots: true,
     images: [
-      { src: "/images/projects/sahayata/02-admin-dashboard.jpg", alt: "SAHAYATA admin dashboard with live disaster map and quick actions", caption: "Admin dashboard — active reports, resources, volunteers, and live disaster map" },
+      { src: "/images/projects/sahayata/01-emergency-contacts.webp", alt: "SAHAYATA admin dashboard with live disaster map and quick actions", caption: "Admin dashboard — active reports, resources, volunteers, and live disaster map" },
     ],
     detail: {
       simpleExplanation: [

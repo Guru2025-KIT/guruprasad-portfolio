@@ -65,8 +65,7 @@ export default function Hero() {
       window.removeEventListener("pointerdown", unlockSound);
       window.removeEventListener("touchstart", unlockSound);
       window.removeEventListener("keydown", unlockSound);
-      window.removeEventListener("wheel", unlockSound);
-      window.removeEventListener("scroll", unlockSound);
+      window.removeEventListener("click", unlockSound);
       lenisInstance?.off?.("scroll", unlockSound);
     };
 
@@ -82,10 +81,9 @@ export default function Hero() {
 
     lenisInstance?.on?.("scroll", unlockSound);
     window.addEventListener("pointerdown", unlockSound);
-    window.addEventListener("touchstart", unlockSound, { passive: true });
+    window.addEventListener("touchstart", unlockSound, { passive: false });
     window.addEventListener("keydown", unlockSound);
-    window.addEventListener("wheel", unlockSound, { passive: true });
-    window.addEventListener("scroll", unlockSound, { passive: true });
+    window.addEventListener("click", unlockSound);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -173,8 +171,7 @@ export default function Hero() {
           muted
           playsInline
           poster={assetPath("/video/hero-poster.jpg")}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "82% 30%" }}
+          className="absolute inset-0 w-full h-full object-cover object-[65%_30%] md:object-[82%_30%]"
         >
           <source src={assetPath("/video/hero-avatar.mp4")} type="video/mp4" />
           <source src="https://raw.githubusercontent.com/Guru2025-KIT/guruprasad-portfolio/main/public/video/hero-avatar.mp4" type="video/mp4" />
