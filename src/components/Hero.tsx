@@ -61,10 +61,15 @@ export default function Hero() {
 
       const v = getActiveVideo();
       if (v && document.visibilityState === "visible") {
+        // On mobile: restart from the very beginning so the user hears the
+        // full audio from frame 0 (not from wherever autoplay got to).
+        if (isMobile()) {
+          v.currentTime = 0;
+        }
         v.muted = false;
         v.volume = 1;
-        // iOS Safari sometimes needs a fresh play() call after unmuting.
-        // We accept the < 100ms hiccup — it is far better than staying muted.
+        // A fresh play() call is required — iOS Safari won't apply the unmute
+        // without it. The brief re-buffer is unavoidable on iOS.
         v.play().catch(() => {
           // Browser blocked audio — keep video going muted at least
           v.muted = true;
