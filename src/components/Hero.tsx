@@ -6,7 +6,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowDown, Volume2 } from "lucide-react";
 import { profile } from "@/lib/data";
-import { assetPath } from "@/lib/utils";
 import Magnetic from "./Magnetic";
 import Particles from "./Particles";
 
@@ -170,13 +169,11 @@ export default function Hero() {
           autoPlay
           muted
           playsInline
-          poster={assetPath("/video/hero-poster.jpg")}
-          className="absolute inset-0 w-full h-full object-cover object-[65%_30%] md:object-[82%_30%]"
+          poster="https://cdn.jsdelivr.net/gh/Guru2025-KIT/guruprasad-portfolio@main/public/video/hero-poster.jpg"
+          className="absolute inset-0 w-full h-full object-cover object-[85%_30%]"
         >
-          <source src={assetPath("/video/hero-avatar.mp4")} type="video/mp4" />
-          <source src="https://raw.githubusercontent.com/Guru2025-KIT/guruprasad-portfolio/main/public/video/hero-avatar.mp4" type="video/mp4" />
-          <source src={assetPath("/video/hero-avatar.webm")} type="video/webm" />
-          <source src="https://raw.githubusercontent.com/Guru2025-KIT/guruprasad-portfolio/main/public/video/hero-avatar.webm" type="video/webm" />
+          <source src="https://cdn.jsdelivr.net/gh/Guru2025-KIT/guruprasad-portfolio@main/public/video/hero-avatar.mp4" type="video/mp4" />
+          <source src="https://cdn.jsdelivr.net/gh/Guru2025-KIT/guruprasad-portfolio@main/public/video/hero-avatar.webm" type="video/webm" />
         </video>
 
         {/* Cinematic color grade + grid + vignette layers */}
