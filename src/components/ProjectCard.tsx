@@ -1,6 +1,3 @@
-"use client";
-
-import Link from "next/link";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { Project } from "@/lib/projects";
 import { getAccentClasses } from "@/lib/accent";
@@ -10,18 +7,19 @@ import ProjectThumb from "./ProjectThumb";
 interface ProjectCardProps {
   project: Project;
   priority?: boolean;
+  onOpenDetails: (project: Project) => void;
 }
 
-export default function ProjectCard({ project, priority }: ProjectCardProps) {
+export default function ProjectCard({ project, priority, onOpenDetails }: ProjectCardProps) {
   const accent = getAccentClasses(project.accent);
 
   if (project.tier === "major") {
     return (
-      <Link
-        href={`/projects/${project.slug}`}
+      <div
+        onClick={() => onOpenDetails(project)}
         data-cursor-hover
         className={cn(
-          "group relative flex flex-col glass-panel rounded-3xl overflow-hidden transition-all duration-500",
+          "group relative flex flex-col glass-panel rounded-3xl overflow-hidden transition-all duration-500 cursor-pointer text-left w-full",
           accent.borderHover
         )}
       >
@@ -74,17 +72,17 @@ export default function ProjectCard({ project, priority }: ProjectCardProps) {
             ))}
           </div>
         </div>
-      </Link>
+      </div>
     );
   }
 
   // minor
   return (
-    <Link
-      href={`/projects/${project.slug}`}
+    <div
+      onClick={() => onOpenDetails(project)}
       data-cursor-hover
       className={cn(
-        "group relative flex items-center gap-4 glass-panel rounded-2xl p-4 transition-all duration-500",
+        "group relative flex items-center gap-4 glass-panel rounded-2xl p-4 transition-all duration-500 cursor-pointer text-left w-full",
         accent.borderHover
       )}
     >
@@ -101,6 +99,6 @@ export default function ProjectCard({ project, priority }: ProjectCardProps) {
           {project.oneLiner}
         </p>
       </div>
-    </Link>
+    </div>
   );
 }
