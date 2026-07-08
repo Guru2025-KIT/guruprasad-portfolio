@@ -121,7 +121,7 @@ export default function Hero() {
   // GSAP ScrollTrigger — subtle cinematic parallax on the hero background
   // as the user scrolls past it (the video layer drifts slower than the page).
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.innerWidth < 768 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.registerPlugin(ScrollTrigger);
 
     const layer = videoLayerRef.current;
@@ -160,10 +160,10 @@ export default function Hero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative min-h-[100vh] w-full overflow-hidden flex items-end md:items-center"
+      className="relative min-h-[100vh] w-full overflow-hidden flex flex-col justify-end md:block pt-28 md:pt-0 pb-12 md:pb-0"
     >
-      {/* Full-bleed avatar video as environment */}
-      <div ref={videoLayerRef} className="absolute inset-0 z-0">
+      {/* Avatar video layer: absolute backdrop on desktop, small relative card below text on mobile */}
+      <div ref={videoLayerRef} className="relative z-10 w-full max-w-[340px] aspect-[4/3] rounded-3xl overflow-hidden border border-paper/10 mx-auto mt-10 md:absolute md:inset-0 md:z-0 md:max-w-none md:aspect-auto md:rounded-none md:border-none md:mt-0 md:w-full md:h-full">
         <video
           ref={videoRef}
           autoPlay
