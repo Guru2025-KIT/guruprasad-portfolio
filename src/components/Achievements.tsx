@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, X, ArrowUpRight, FileText, ExternalLink } from "lucide-react";
 import { achievements } from "@/lib/data";
+import { assetPath } from "@/lib/utils";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 
@@ -114,14 +115,14 @@ export default function Achievements() {
                     selected.proof.toLowerCase().endsWith(".pdf") ? (
                       <div className="w-full h-full flex flex-col">
                         <iframe
-                          src={selected.proof}
+                          src={assetPath(selected.proof)}
                           className="w-full h-full border-0 flex-1 bg-white"
                           title="Certificate PDF Viewer"
                         />
                         <div className="p-3 border-t border-paper/10 bg-ink-950/80 flex justify-between items-center text-xs">
                           <span className="font-mono text-paper/50">PDF Document</span>
                           <a
-                            href={selected.proof}
+                            href={assetPath(selected.proof)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1 text-signal-amber hover:underline font-mono uppercase text-[10px] tracking-wide"
@@ -133,7 +134,7 @@ export default function Achievements() {
                     ) : (
                       <div className="relative w-full h-full min-h-[350px]">
                         <img
-                          src={selected.proof}
+                          src={assetPath(selected.proof)}
                           alt={selected.title}
                           className="absolute inset-0 w-full h-full object-contain p-2"
                         />
@@ -172,7 +173,7 @@ export default function Achievements() {
                   {selected.proof && (
                     <div className="mt-auto pt-6 border-t border-paper/10">
                       <a
-                        href={selected.proof}
+                        href={assetPath(selected.proof)}
                         download
                         className="w-full py-3 px-4 rounded-xl bg-signal-amber text-ink-950 font-medium text-xs text-center block hover:bg-signal-amber/90 hover:shadow-glow-amber transition-all duration-300"
                       >

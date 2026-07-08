@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowDown, Volume2 } from "lucide-react";
 import { profile } from "@/lib/data";
+import { assetPath } from "@/lib/utils";
 import Magnetic from "./Magnetic";
 import Particles from "./Particles";
 
@@ -171,12 +172,12 @@ export default function Hero() {
           autoPlay
           muted
           playsInline
-          poster="/video/hero-poster.jpg"
+          poster={assetPath("/video/hero-poster.jpg")}
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: "82% 30%" }}
         >
-          <source src="/video/hero-avatar.webm" type="video/webm" />
-          <source src="/video/hero-avatar.mp4" type="video/mp4" />
+          <source src={assetPath("/video/hero-avatar.webm")} type="video/webm" />
+          <source src={assetPath("/video/hero-avatar.mp4")} type="video/mp4" />
         </video>
 
         {/* Cinematic color grade + grid + vignette layers */}

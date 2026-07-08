@@ -3,6 +3,7 @@
 import { Mail, Phone, ArrowUpRight } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./BrandIcons";
 import { profile } from "@/lib/data";
+import { assetPath } from "@/lib/utils";
 import Magnetic from "./Magnetic";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
@@ -66,7 +67,7 @@ export default function Contact() {
           <div className="mt-10">
             <Magnetic>
               <a
-                href="/resume.pdf"
+                href={assetPath("/Guruprasad_Resume.pdf")}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor-hover
