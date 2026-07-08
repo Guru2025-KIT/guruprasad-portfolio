@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 import { ProjectImage } from "@/lib/projects";
-import { cn } from "@/lib/utils";
+import { cn, assetPath } from "@/lib/utils";
 
 interface ProjectGalleryProps {
   images: ProjectImage[];
@@ -56,7 +56,7 @@ export default function ProjectGallery({ images, accentText }: ProjectGalleryPro
           >
             <div className={cn("relative w-full", i === 0 ? "aspect-[16/9]" : "aspect-[4/3]")}>
               <Image
-                src={img.src}
+                src={assetPath(img.src)}
                 alt={img.alt}
                 fill
                 unoptimized
@@ -121,7 +121,7 @@ export default function ProjectGallery({ images, accentText }: ProjectGalleryPro
           >
             <div className="relative w-full h-[65vh]">
               <Image
-                src={images[activeIndex].src}
+                src={assetPath(images[activeIndex].src)}
                 alt={images[activeIndex].alt}
                 fill
                 unoptimized
