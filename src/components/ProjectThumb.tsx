@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Sparkles } from "lucide-react";
 import { Project } from "@/lib/projects";
 import { getAccentClasses } from "@/lib/accent";
-import { cn, assetPath } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 interface ProjectThumbProps {
   project: Project;
@@ -18,7 +18,7 @@ export default function ProjectThumb({ project, className, priority, compact }: 
     return (
       <div className={cn("relative overflow-hidden", className)}>
         <Image
-          src={assetPath(project.images[0].src)}
+          src={project.images[0].src}
           alt={project.images[0].alt}
           fill
           priority={priority}

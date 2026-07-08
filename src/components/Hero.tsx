@@ -177,7 +177,9 @@ export default function Hero() {
           style={{ objectPosition: "82% 30%" }}
         >
           <source src={assetPath("/video/hero-avatar.webm")} type="video/webm" />
+          <source src="https://raw.githubusercontent.com/Guru2025-KIT/guruprasad-portfolio/main/public/video/hero-avatar.webm" type="video/webm" />
           <source src={assetPath("/video/hero-avatar.mp4")} type="video/mp4" />
+          <source src="https://raw.githubusercontent.com/Guru2025-KIT/guruprasad-portfolio/main/public/video/hero-avatar.mp4" type="video/mp4" />
         </video>
 
         {/* Cinematic color grade + grid + vignette layers */}
