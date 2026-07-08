@@ -36,31 +36,42 @@ export default function Hero() {
 
     let unlocked = false;
 
-    // Just unmute — never call .play() here because:
-    // • desktop video is already autoplaying muted (re-calling play() causes a
-    //   momentary stutter / buffering pause on mobile Safari)
-    // • mobile video is in the DOM and playing too — we just need to drop muted
+    // On mobile screens: mobileVideoRef is the real one, videoRef (desktop) must be silenced.
+    // On desktop screens: videoRef is the real one, mobileVideoRef must be silenced.
+    // display:none does NOT stop audio — we must pause + mute the inactive video ourselves.
+    const isMobile = () => window.innerWidth < 768;
+
+    const getActiveVideo   = () => isMobile() ? mobileVideoRef.current : videoRef.current;
+    const getInactiveVideo = () => isMobile() ? videoRef.current : mobileVideoRef.current;
+
+    // Immediately silence whichever video is off-screen so there is no echo.
+    const silenceInactive = () => {
+      const inactive = getInactiveVideo();
+      if (inactive) {
+        inactive.muted = true;
+        inactive.pause();
+      }
+    };
+    silenceInactive();
+
     const unlockSound = () => {
       if (unlocked) return;
       unlocked = true;
       setSoundUnlocked(true);
 
-      const tryUnmute = (v: HTMLVideoElement | null) => {
-        if (!v) return;
+      const v = getActiveVideo();
+      if (v && document.visibilityState === "visible") {
         v.muted = false;
         v.volume = 1;
-        // If the browser paused it for any reason, nudge it back
-        if (v.paused) {
-          v.play().catch(() => { v.muted = true; });
-        }
-      };
-
-      if (document.visibilityState === "visible") {
-        tryUnmute(videoRef.current);
-        tryUnmute(mobileVideoRef.current);
+        // iOS Safari sometimes needs a fresh play() call after unmuting.
+        // We accept the < 100ms hiccup — it is far better than staying muted.
+        v.play().catch(() => {
+          // Browser blocked audio — keep video going muted at least
+          v.muted = true;
+          v.play().catch(() => {});
+        });
       }
 
-      // Remove all unlock listeners
       removeListeners();
     };
 
@@ -81,8 +92,7 @@ export default function Hero() {
       lenisInstance?.off?.("scroll", unlockSound);
     };
 
-    // Trigger on ANY user gesture — pointer, touch, key, scroll, wheel,
-    // even just moving the mouse over the page (desktop).
+    // Unlock on ANY user gesture: pointer, touch, key, scroll, wheel, mousemove.
     lenisInstance?.on?.("scroll", unlockSound);
     window.addEventListener("pointerdown", unlockSound);
     window.addEventListener("touchstart", unlockSound, { passive: false });
@@ -92,24 +102,24 @@ export default function Hero() {
     window.addEventListener("scroll", unlockSound, { passive: true });
     window.addEventListener("mousemove", unlockSound, { passive: true });
 
-    // IntersectionObserver: pause when hero is off-screen, resume when back.
-    // Do NOT reset currentTime — that causes the re-play stutter on mobile.
+    // IntersectionObserver — pause/resume only the ACTIVE video.
+    // Low threshold (0.05) so it keeps playing until hero is nearly gone.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const vids = [videoRef.current, mobileVideoRef.current].filter(Boolean) as HTMLVideoElement[];
+        const v = getActiveVideo();
+        if (!v) return;
         if (entry.isIntersecting) {
-          vids.forEach(v => {
-            if (unlocked) { v.muted = false; v.volume = 1; }
-            // Only play if actually paused (avoid interrupting already-playing)
-            if (v.paused) {
-              v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
-            }
-          });
+          if (unlocked) { v.muted = false; v.volume = 1; }
+          if (v.paused) {
+            v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+          }
         } else {
-          vids.forEach(v => v.pause());
+          v.pause();
         }
+        // Keep inactive video always silenced
+        silenceInactive();
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
     observer.observe(section);
 
