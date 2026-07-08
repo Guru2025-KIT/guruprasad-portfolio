@@ -22,6 +22,7 @@ export default function ProjectThumb({ project, className, priority, compact }: 
           alt={project.images[0].alt}
           fill
           priority={priority}
+          unoptimized
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 50vw"
         />

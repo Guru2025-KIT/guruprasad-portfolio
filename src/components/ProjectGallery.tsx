@@ -59,6 +59,7 @@ export default function ProjectGallery({ images, accentText }: ProjectGalleryPro
                 src={img.src}
                 alt={img.alt}
                 fill
+                unoptimized
                 className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
@@ -123,6 +124,7 @@ export default function ProjectGallery({ images, accentText }: ProjectGalleryPro
                 src={images[activeIndex].src}
                 alt={images[activeIndex].alt}
                 fill
+                unoptimized
                 className="object-contain"
                 sizes="100vw"
               />

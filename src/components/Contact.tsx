@@ -66,11 +66,13 @@ export default function Contact() {
           <div className="mt-10">
             <Magnetic>
               <a
-                href={`mailto:${profile.email}`}
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 data-cursor-hover
                 className="group inline-flex items-center gap-2 px-7 py-4 rounded-full bg-signal-blue text-ink-950 font-medium text-base shadow-glow"
               >
-                Say hello
+                View Resume
                 <ArrowUpRight
                   size={18}
                   className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"

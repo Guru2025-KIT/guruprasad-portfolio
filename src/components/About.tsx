@@ -2,11 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Sparkles, Code2, Brain } from "lucide-react";
-import { about } from "@/lib/data";
+import { about, profile } from "@/lib/data";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 
 export default function About() {
+  const cgpa = profile.stats.find((s) => s.label === "CGPA")?.value || "9.5";
   return (
     <section
       id="about"
@@ -88,7 +89,7 @@ export default function About() {
                 <div className="pt-5 border-t border-paper/10">
                   <div className="flex items-end justify-between gap-3">
                     <div>
-                      <p className="font-display text-4xl text-paper">9.76</p>
+                      <p className="font-display text-4xl text-paper">{cgpa}</p>
                       <p className="font-mono text-[10px] uppercase tracking-widest2 text-paper/45 mt-1">
                         CGPA &middot; KIT College of Engineering
                       </p>

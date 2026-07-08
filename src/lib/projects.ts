@@ -94,7 +94,7 @@ export const projects: Project[] = [
     },
     hasRealScreenshots: true,
     images: [
-      { src: "/images/projects/pragati/01-home.jpg", alt: "PRAGATI landing page", caption: "Landing page — \"From First Year to First Offer\"" },
+      { src: "/images/projects/pragati/01-home.png", alt: "PRAGATI landing page", caption: "Landing page — \"From First Year to First Offer\"" },
     ],
     detail: {
       simpleExplanation: [
@@ -245,7 +245,7 @@ export const projects: Project[] = [
     },
     hasRealScreenshots: true,
     images: [
-      { src: "/images/projects/moneynext/01-hero.jpg", alt: "MoneyNext landing page showing net worth dashboard", caption: "Landing page — \"Financial Wellness for Every Indian\"" },
+      { src: "/images/projects/moneynext/01-hero.png", alt: "MoneyNext landing page showing net worth dashboard", caption: "Landing page — \"Financial Wellness for Every Indian\"" },
     ],
     detail: {
       simpleExplanation: [
@@ -314,8 +314,10 @@ export const projects: Project[] = [
       url: "https://shine-mvp-pending-deployment.guruprasadshinde.dev",
       isPlaceholder: true,
     },
-    hasRealScreenshots: false,
-    images: [],
+    hasRealScreenshots: true,
+    images: [
+      { src: "/images/projects/shine/01-dashboard.svg", alt: "SHINE JARVIS-style dashboard", caption: "Interactive HUD — JARVIS student risk analysis dashboard" },
+    ],
     detail: {
       simpleExplanation: [
         "SHINE tries to catch a problem early that usually only gets noticed late: a student quietly losing momentum and eventually dropping out. Instead of mentors finding out after the fact, SHINE scores every student's dropout risk using a trained ML model and surfaces the high-risk ones on a dashboard styled like a sci-fi command console — deliberately, so checking on students feels less like paperwork and more like running diagnostics.",

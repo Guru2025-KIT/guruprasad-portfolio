@@ -173,7 +173,7 @@ export default function Hero() {
           playsInline
           poster="/video/hero-poster.jpg"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "62% 30%" }}
+          style={{ objectPosition: "82% 30%" }}
         >
           <source src="/video/hero-avatar.webm" type="video/webm" />
           <source src="/video/hero-avatar.mp4" type="video/mp4" />
@@ -221,7 +221,7 @@ export default function Hero() {
       )}
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-0 pt-32 md:pt-0">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-16 pt-32 md:pt-28">
         <div className="max-w-[640px]">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
