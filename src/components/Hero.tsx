@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowDown, Volume2 } from "lucide-react";
@@ -176,6 +176,23 @@ export default function Hero() {
           <source src="https://cdn.jsdelivr.net/gh/Guru2025-KIT/guruprasad-portfolio@main/public/video/hero-avatar.webm" type="video/webm" />
         </video>
 
+        {/* Mobile tap-to-unmute overlay */}
+        <AnimatePresence>
+          {!soundUnlocked && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-ink-950/30 backdrop-blur-[0.5px] flex items-center justify-center p-4 md:hidden pointer-events-none z-[11]"
+            >
+              <div className="px-4 py-2.5 rounded-2xl bg-ink-950/70 backdrop-blur-md border border-paper/10 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-paper/85 shadow-glow-amber">
+                <Volume2 size={13} className="text-signal-amber animate-pulse" />
+                Tap to unmute
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Cinematic color grade + grid + vignette layers */}
         <div className="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/75 to-ink-950/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-ink-950/40" />
@@ -208,7 +225,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, delay: 0.9 }}
-          className="absolute top-24 md:top-28 right-6 md:right-10 z-10 pointer-events-none"
+          className="absolute top-24 md:top-28 right-6 md:right-10 z-10 pointer-events-none hidden md:block"
         >
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel font-mono text-[10px] uppercase tracking-widest2 text-paper/55">
             <Volume2 size={12} className="text-signal-blue" />
