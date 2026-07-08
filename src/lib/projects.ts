@@ -316,7 +316,7 @@ export const projects: Project[] = [
     },
     hasRealScreenshots: true,
     images: [
-      { src: "/images/projects/shine/01-dashboard.svg", alt: "SHINE JARVIS-style dashboard", caption: "Interactive HUD — JARVIS student risk analysis dashboard" },
+      { src: "/images/projects/shine/01-dashboard.png", alt: "SHINE Authentication screen", caption: "Authentication Screen — Secure login to student analytics portal" },
     ],
     detail: {
       simpleExplanation: [

@@ -176,10 +176,10 @@ export default function Hero() {
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: "82% 30%" }}
         >
-          <source src={assetPath("/video/hero-avatar.webm")} type="video/webm" />
-          <source src="https://raw.githubusercontent.com/Guru2025-KIT/guruprasad-portfolio/main/public/video/hero-avatar.webm" type="video/webm" />
           <source src={assetPath("/video/hero-avatar.mp4")} type="video/mp4" />
           <source src="https://raw.githubusercontent.com/Guru2025-KIT/guruprasad-portfolio/main/public/video/hero-avatar.mp4" type="video/mp4" />
+          <source src={assetPath("/video/hero-avatar.webm")} type="video/webm" />
+          <source src="https://raw.githubusercontent.com/Guru2025-KIT/guruprasad-portfolio/main/public/video/hero-avatar.webm" type="video/webm" />
         </video>
 
         {/* Cinematic color grade + grid + vignette layers */}
