@@ -31,72 +31,90 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    // Pick whichever video element is visible
-    const video = videoRef.current ?? mobileVideoRef.current;
     const section = sectionRef.current;
-    if (!video || !section) return;
+    if (!section) return;
 
     let unlocked = false;
 
+    // Just unmute — never call .play() here because:
+    // • desktop video is already autoplaying muted (re-calling play() causes a
+    //   momentary stutter / buffering pause on mobile Safari)
+    // • mobile video is in the DOM and playing too — we just need to drop muted
     const unlockSound = () => {
       if (unlocked) return;
       unlocked = true;
       setSoundUnlocked(true);
 
-      const unlock = (v: HTMLVideoElement | null) => {
+      const tryUnmute = (v: HTMLVideoElement | null) => {
         if (!v) return;
         v.muted = false;
         v.volume = 1;
-        v.play().catch(() => { v.muted = true; });
+        // If the browser paused it for any reason, nudge it back
+        if (v.paused) {
+          v.play().catch(() => { v.muted = true; });
+        }
       };
 
       if (document.visibilityState === "visible") {
-        unlock(videoRef.current);
-        unlock(mobileVideoRef.current);
+        tryUnmute(videoRef.current);
+        tryUnmute(mobileVideoRef.current);
       }
 
-      window.removeEventListener("pointerdown", unlockSound);
-      window.removeEventListener("touchstart", unlockSound);
-      window.removeEventListener("keydown", unlockSound);
-      window.removeEventListener("click", unlockSound);
-      lenisInstance?.off?.(unlockSound);
+      // Remove all unlock listeners
+      removeListeners();
     };
 
     const lenisInstance = (
       window as unknown as {
-        __lenis?: { on: (e: string, cb: () => void) => void; off?: (cb: () => void) => void };
+        __lenis?: { on: (e: string, cb: () => void) => void; off?: (e: string, cb: () => void) => void };
       }
     ).__lenis;
 
+    const removeListeners = () => {
+      window.removeEventListener("pointerdown", unlockSound);
+      window.removeEventListener("touchstart", unlockSound);
+      window.removeEventListener("keydown", unlockSound);
+      window.removeEventListener("click", unlockSound);
+      window.removeEventListener("wheel", unlockSound);
+      window.removeEventListener("scroll", unlockSound);
+      window.removeEventListener("mousemove", unlockSound);
+      lenisInstance?.off?.("scroll", unlockSound);
+    };
+
+    // Trigger on ANY user gesture — pointer, touch, key, scroll, wheel,
+    // even just moving the mouse over the page (desktop).
     lenisInstance?.on?.("scroll", unlockSound);
     window.addEventListener("pointerdown", unlockSound);
     window.addEventListener("touchstart", unlockSound, { passive: false });
     window.addEventListener("keydown", unlockSound);
     window.addEventListener("click", unlockSound);
+    window.addEventListener("wheel", unlockSound, { passive: true });
+    window.addEventListener("scroll", unlockSound, { passive: true });
+    window.addEventListener("mousemove", unlockSound, { passive: true });
 
+    // IntersectionObserver: pause when hero is off-screen, resume when back.
+    // Do NOT reset currentTime — that causes the re-play stutter on mobile.
     const observer = new IntersectionObserver(
       ([entry]) => {
         const vids = [videoRef.current, mobileVideoRef.current].filter(Boolean) as HTMLVideoElement[];
         if (entry.isIntersecting) {
           vids.forEach(v => {
-            v.currentTime = 0;
             if (unlocked) { v.muted = false; v.volume = 1; }
-            v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+            // Only play if actually paused (avoid interrupting already-playing)
+            if (v.paused) {
+              v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+            }
           });
         } else {
           vids.forEach(v => v.pause());
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.1 }
     );
     observer.observe(section);
 
     return () => {
-      window.removeEventListener("pointerdown", unlockSound);
-      window.removeEventListener("touchstart", unlockSound);
-      window.removeEventListener("keydown", unlockSound);
-      window.removeEventListener("click", unlockSound);
-      lenisInstance?.off?.(unlockSound);
+      removeListeners();
       observer.disconnect();
     };
   }, []);
@@ -182,7 +200,7 @@ export default function Hero() {
             muted
             playsInline
             poster={VIDEO_POSTER}
-            className="absolute inset-0 w-full h-full object-cover object-[85%_30%]"
+            className="absolute inset-0 w-full h-full object-cover object-[80%_5%]"
           >
             <source src={VIDEO_SRC_MP4} type="video/mp4" />
             <source src={VIDEO_SRC_WEBM} type="video/webm" />
@@ -263,7 +281,7 @@ export default function Hero() {
             muted
             playsInline
             poster={VIDEO_POSTER}
-            className="absolute inset-0 w-full h-full object-cover object-[85%_30%]"
+            className="absolute inset-0 w-full h-full object-cover object-[80%_5%]"
           >
             <source src={VIDEO_SRC_MP4} type="video/mp4" />
             <source src={VIDEO_SRC_WEBM} type="video/webm" />
